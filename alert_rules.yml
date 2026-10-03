@@ -1,0 +1,11 @@
+groups:
+  - name: sit223-alerts
+    rules:
+      - alert: SIT223ApplicationDown
+        expr: up{job="sit223-flask-app"} == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "SIT223 application is down"
+          description: "Prometheus cannot reach the SIT223 Flask application."
