@@ -70,5 +70,13 @@ pipeline {
                 echo 'Release image created.'
             }
         }
+
+        stage('Monitoring') {
+            steps {
+                echo 'Checking deployed application health...'
+
+                bat 'powershell -Command "$response = Invoke-RestMethod -Uri http://localhost:5000/health; if ($response.status -ne \'healthy\') { Write-Error \'Application health check failed\'; exit 1 } else { Write-Host \'Application health check passed.\' }"'
+            }
+        }
     }
 }
