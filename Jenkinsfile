@@ -32,5 +32,15 @@ pipeline {
                 bat '"C:\\Users\\thamasha\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe" -m flake8 app.py test_app.py'
             }
         }
+
+        stage('Security') {
+            steps {
+                echo 'Installing Bandit...'
+                bat '"C:\\Users\\thamasha\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe" -m pip install bandit'
+
+                echo 'Running Bandit security scan...'
+                bat '"C:\\Users\\thamasha\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe" -m bandit -r app.py'
+            }
+        }
     }
 }
