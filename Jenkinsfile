@@ -42,5 +42,15 @@ pipeline {
                 bat '"C:\\Users\\thamasha\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe" -m bandit -r app.py'
             }
         }
+
+        stage('Deploy') {
+            steps {
+                echo 'Deploying application container...'
+
+                bat '"C:\\Users\\thamasha\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" rm -f sit223-app || exit 0'
+
+                bat '"C:\\Users\\thamasha\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe" run -d -p 5000:5000 --name sit223-app -e FLASK_HOST=0.0.0.0 sit223-devops-app'
+            }
+        }
     }
 }
